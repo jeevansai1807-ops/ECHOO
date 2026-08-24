@@ -25,7 +25,7 @@ function App() {
   return (
     <div className="flex h-screen w-full bg-echo-dark text-echo-text overflow-hidden transition-colors duration-500">
       {/* Sidebar */}
-      <aside className="w-64 bg-echo-card/40 backdrop-blur-xl border-r border-white/10 flex flex-col z-20 shadow-[4px_0_24px_rgba(0,0,0,0.2)]">
+      <aside className="w-64 glass-panel rounded-none border-y-0 border-l-0 flex flex-col z-20">
         <div className="p-6 flex items-center gap-3">
           <div className="w-8 h-8 rounded-lg bg-echo-accent flex items-center justify-center shadow-[0_0_15px_rgba(59,130,246,0.5)]">
             <Sparkles size={18} className="text-white" />
@@ -52,17 +52,17 @@ function App() {
       {/* Main Content */}
       <main className="flex-1 flex flex-col relative overflow-y-auto">
         {/* Top Navbar */}
-        <header className="sticky top-0 z-10 bg-echo-dark/50 backdrop-blur-md border-b border-white/5 px-6 py-4 flex items-center justify-between">
+        <header className="sticky top-0 z-10 glass-panel rounded-none border-x-0 border-t-0 px-6 py-4 flex items-center justify-between">
           <div className="relative w-full max-w-xl group">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-echo-text-muted group-focus-within:text-echo-accent transition-colors" size={18} />
             <input 
               type="text" 
               placeholder="Search projects, people, documents, meetings..." 
-              className="w-full bg-white/5 border border-white/10 rounded-full pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:border-echo-accent focus:bg-white/10 transition-all shadow-inner"
+              className="w-full glass-panel !rounded-full pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:border-echo-accent focus:shadow-[0_0_15px_rgba(99,102,241,0.5)] transition-all"
             />
             <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1 opacity-50">
-              <kbd className="bg-white/10 px-1.5 py-0.5 rounded text-[10px] border border-white/20">Ctrl</kbd>
-              <kbd className="bg-white/10 px-1.5 py-0.5 rounded text-[10px] border border-white/20">K</kbd>
+              <kbd className="bg-echo-text/5 px-1.5 py-0.5 rounded text-[10px] border border-echo-text/10">Ctrl</kbd>
+              <kbd className="bg-echo-text/5 px-1.5 py-0.5 rounded text-[10px] border border-echo-text/10">K</kbd>
             </div>
           </div>
           
@@ -72,22 +72,29 @@ function App() {
               <Bell size={20} />
               <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full shadow-[0_0_8px_rgba(239,68,68,0.8)]"></span>
             </button>
-            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 border-2 border-white/10 flex items-center justify-center text-sm font-medium cursor-pointer">
+            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 border-2 border-echo-text/10 flex items-center justify-center text-sm font-medium text-white cursor-pointer">
               JD
             </div>
           </div>
         </header>
 
         {activeTab === 'dashboard' && (
-          <div className="p-6 h-full flex flex-col gap-6">
+          <div className="p-6 h-full flex flex-col gap-6 relative overflow-hidden">
+            {/* Ambient Background glow just for the dashboard */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-gradient-to-b from-indigo-500/10 via-purple-500/5 to-transparent blur-[100px] pointer-events-none z-0" />
+
             {/* Pulse */}
-            <OrganizationPulse />
+            <div className="relative z-10">
+              <OrganizationPulse />
+            </div>
 
             {/* Graph Area */}
-            <div className="flex-1 bg-echo-card/30 backdrop-blur-md border border-white/10 rounded-2xl overflow-hidden relative min-h-[500px] shadow-[inset_0_0_40px_rgba(0,0,0,0.2)]">
-              <div className="absolute top-4 left-4 z-10 flex items-center gap-3">
-                <h3 className="font-semibold text-lg bg-echo-dark/80 px-4 py-1.5 rounded-lg backdrop-blur-md border border-white/10 shadow-lg">Knowledge Graph</h3>
-                <span className="text-xs text-echo-text-muted bg-white/5 px-2 py-1 rounded-md border border-white/5">Click nodes to explore relationships</span>
+            <div className="flex-1 glass-panel overflow-hidden relative min-h-[500px] z-10 !bg-transparent !shadow-none !border-white/5 rounded-3xl mt-4">
+              <div className="absolute top-4 left-4 z-20 flex items-center gap-3">
+                <h3 className="font-semibold text-lg bg-echo-dark/80 px-4 py-1.5 rounded-lg backdrop-blur-md border border-echo-text/10 shadow-[0_0_15px_rgba(99,102,241,0.2)]">Neural Link</h3>
+                <span className="text-[10px] text-emerald-400 bg-emerald-400/10 px-2 py-1 rounded-md border border-emerald-400/20 flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> LIVE
+                </span>
               </div>
               <KnowledgeGraph />
             </div>
@@ -104,7 +111,7 @@ function App() {
         {['projects', 'team', 'analytics'].includes(activeTab) && (
           <div className="p-6 flex items-center justify-center h-full text-echo-text-muted">
              <div className="text-center">
-               <div className="w-16 h-16 rounded-full bg-black/5 dark:bg-white/5 flex items-center justify-center mx-auto mb-4">
+               <div className="w-16 h-16 rounded-full bg-echo-text/5 flex items-center justify-center mx-auto mb-4">
                  <Sparkles className="text-echo-accent opacity-50" size={24} />
                </div>
                <h3 className="text-xl font-medium text-echo-text mb-2">{activeTab.charAt(0).toUpperCase() + activeTab.slice(1)} Module</h3>
@@ -115,7 +122,7 @@ function App() {
       </main>
 
       {/* Right Panel - AI Chat */}
-      <aside className="w-96 bg-echo-card/40 backdrop-blur-xl border-l border-white/10 flex flex-col z-20 shadow-[-4px_0_24px_rgba(0,0,0,0.2)]">
+      <aside className="w-96 glass-panel rounded-none border-y-0 border-r-0 flex flex-col z-20">
         <div className="p-4 border-b border-white/10 flex items-center gap-3 bg-echo-dark/30">
           <div className="w-8 h-8 rounded-full bg-echo-accent/20 flex items-center justify-center">
              <MessageSquare className="text-echo-accent" size={16} />
@@ -142,7 +149,7 @@ function NavItem({ icon, label, active, onClick }: { icon: React.ReactNode, labe
       className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 group relative overflow-hidden ${
         active 
           ? 'bg-echo-accent/10 text-echo-accent font-medium border border-echo-accent/20' 
-          : 'text-echo-text-muted hover:bg-white/5 hover:text-echo-text border border-transparent'
+          : 'text-echo-text-muted hover:bg-echo-text/5 hover:text-echo-text border border-transparent'
       }`}
     >
       {active && (
@@ -157,11 +164,11 @@ function NavItem({ icon, label, active, onClick }: { icon: React.ReactNode, labe
 }
 
 function ThemeToggle() {
-  const [isLight, setIsLight] = useState(false);
+  const [isLight, setIsLight] = useState(true);
   
   useEffect(() => {
-    // Default to dark mode (isLight = false)
-    document.documentElement.classList.add('dark');
+    // Default to light mode (isLight = true)
+    document.documentElement.classList.remove('dark');
   }, []);
 
   const toggleTheme = () => {

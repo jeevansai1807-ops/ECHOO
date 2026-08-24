@@ -94,15 +94,15 @@ export function FileUpload() {
   return (
     <div className="w-full max-w-2xl mx-auto">
       <div className="text-center mb-8">
-        <h2 className="text-4xl font-bold mb-3 bg-gradient-to-r from-white to-echo-text-muted bg-clip-text text-transparent">Upload Knowledge</h2>
+        <h2 className="text-4xl font-bold mb-3 bg-gradient-to-r from-echo-text to-echo-text-muted bg-clip-text text-transparent">Upload Knowledge</h2>
         <p className="text-echo-text-muted text-lg">Upload PDFs, TXTs, or DOCX files. ECHO will automatically extract entities and build relationships.</p>
       </div>
 
       <motion.div 
-        className={`border-2 border-dashed rounded-3xl p-12 text-center transition-all duration-300 relative overflow-hidden bg-echo-card/40 backdrop-blur-xl shadow-2xl ${
+        className={`border-2 border-dashed rounded-3xl p-12 text-center transition-all duration-300 relative overflow-hidden glass-panel shadow-2xl ${
           isDragging 
             ? 'border-echo-accent bg-echo-accent/10 scale-[1.02]' 
-            : 'border-white/20 hover:border-white/40 hover:bg-echo-card/60'
+            : 'border-echo-text/20 hover:border-echo-text/40 hover:bg-echo-card/60'
         }`}
         onDragOver={onDragOver}
         onDragLeave={onDragLeave}
@@ -113,7 +113,7 @@ export function FileUpload() {
         <AnimatePresence mode="wait">
           {!file ? (
             <motion.div key="empty" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex flex-col items-center">
-              <div className="w-24 h-24 rounded-full bg-echo-dark/50 flex items-center justify-center mb-6 shadow-inner border border-white/5">
+              <div className="w-24 h-24 rounded-full bg-echo-card/50 flex items-center justify-center mb-6 shadow-inner border border-echo-text/10">
                 <UploadCloud size={48} className="text-echo-accent opacity-80" />
               </div>
               <h3 className="text-2xl font-semibold mb-2">Drag & Drop files here</h3>
@@ -125,7 +125,7 @@ export function FileUpload() {
             </motion.div>
           ) : (
             <motion.div key="file" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="flex flex-col items-center w-full max-w-md mx-auto">
-              <div className="w-20 h-20 rounded-2xl bg-echo-dark/80 flex items-center justify-center mb-6 border border-white/10 shadow-lg relative">
+              <div className="w-20 h-20 rounded-2xl bg-echo-card/80 flex items-center justify-center mb-6 border border-echo-text/10 shadow-lg relative">
                 {uploadState === 'success' 
                   ? <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}><CheckCircle size={40} className="text-green-400" /></motion.div>
                   : <File size={40} className="text-echo-accent" />
@@ -148,7 +148,7 @@ export function FileUpload() {
                     <span>{uploadState === 'uploading' ? 'Uploading...' : uploadState === 'processing' ? 'Extracting Entities & AI Processing...' : 'Upload Complete'}</span>
                     <span>{progress}%</span>
                   </div>
-                  <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
+                  <div className="w-full h-2 bg-echo-text/10 rounded-full overflow-hidden">
                     <motion.div 
                       className={`h-full ${uploadState === 'success' ? 'bg-green-400' : 'bg-echo-accent'}`}
                       initial={{ width: 0 }}
@@ -161,7 +161,7 @@ export function FileUpload() {
 
               {uploadState === 'idle' && (
                 <div className="flex gap-4 w-full">
-                  <button onClick={reset} className="flex-1 py-3 rounded-full border border-white/20 hover:bg-white/5 transition-colors">
+                  <button onClick={reset} className="flex-1 py-3 rounded-full border border-echo-text/20 hover:bg-echo-text/5 transition-colors">
                     Cancel
                   </button>
                   <button onClick={handleUpload} className="flex-1 py-3 rounded-full bg-echo-accent text-white hover:bg-blue-600 transition-colors font-medium shadow-[0_0_15px_rgba(59,130,246,0.4)]">
@@ -172,7 +172,7 @@ export function FileUpload() {
 
               {uploadState === 'success' && (
                 <div className="flex gap-4 w-full mt-4">
-                  <button onClick={reset} className="flex-1 py-3 rounded-full border border-white/20 hover:bg-white/5 transition-colors">
+                  <button onClick={reset} className="flex-1 py-3 rounded-full border border-echo-text/20 hover:bg-echo-text/5 transition-colors">
                     Upload Another
                   </button>
                   <button className="flex-1 py-3 rounded-full bg-green-500 text-white hover:bg-green-600 transition-colors font-medium shadow-[0_0_15px_rgba(34,197,94,0.4)] flex items-center justify-center gap-2 group">

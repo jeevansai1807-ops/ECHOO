@@ -23,6 +23,17 @@ def extract_text_from_pdf(file_bytes: bytes) -> str:
         text += page.extract_text() + "\n"
     return text
 
+def chunk_text(text: str, chunk_size: int = 500, overlap: int = 100) -> list[str]:
+    chunks = []
+    start = 0
+    text_len = len(text)
+    if text_len == 0:
+        return chunks
+    while start < text_len:
+        chunks.append(text[start:start+chunk_size])
+        start += chunk_size - overlap
+    return chunks
+
 def extract_entities(text: str) -> list[ExtractedEntity]:
     doc = nlp(text)
     entities = []

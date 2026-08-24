@@ -1,55 +1,50 @@
 import React from 'react';
+import { motion } from 'framer-motion';
+import { AICore } from './AICore';
 
 export function LoadingScreen() {
   return (
-    <div className="main-container bg-[#0f172a] fixed inset-0 z-50">
-      <div className="loader w-full h-full flex items-center justify-center">
-        <svg viewBox="0 0 800 600" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            {/* Linear gradients could go here if needed */}
-          </defs>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-echo-dark overflow-hidden">
+      {/* Background Animated Mesh (localized for loader) */}
+      <div className="absolute inset-0 z-0 opacity-50">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-600/30 rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '4s' }} />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-pink-600/30 rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '5s', animationDelay: '1s' }} />
+      </div>
 
-          {/* Background Traces */}
-          <path className="trace-bg" d="M 100,300 L 250,300 L 300,250 L 350,250" />
-          <path className="trace-bg" d="M 700,300 L 550,300 L 500,350 L 450,350" />
-          <path className="trace-bg" d="M 400,100 L 400,200 L 350,250" />
-          <path className="trace-bg" d="M 400,500 L 400,400 L 450,350" />
-          <path className="trace-bg" d="M 200,150 L 300,150 L 350,200 L 350,250" />
+      <div className="relative z-10 flex flex-col items-center justify-center">
+        
+        <AICore scale={1.2} isProcessing={true} />
 
-          {/* Flow Traces */}
-          <path className="trace-flow blue" d="M 100,300 L 250,300 L 300,250 L 350,250" />
-          <path className="trace-flow purple" d="M 700,300 L 550,300 L 500,350 L 450,350" />
-          <path className="trace-flow yellow" d="M 400,100 L 400,200 L 350,250" />
-          <path className="trace-flow green" d="M 400,500 L 400,400 L 450,350" />
-          <path className="trace-flow red" d="M 200,150 L 300,150 L 350,200 L 350,250" />
-
-          {/* Chip Pins (Left/Right) */}
-          {[...Array(6)].map((_, i) => (
-            <React.Fragment key={`pin-left-${i}`}>
-              <line x1="330" y1={235 + i * 15} x2="350" y2={235 + i * 15} className="chip-pin" />
-              <line x1="450" y1={235 + i * 15} x2="470" y2={235 + i * 15} className="chip-pin" />
-            </React.Fragment>
-          ))}
-          {/* Chip Pins (Top/Bottom) */}
-          {[...Array(6)].map((_, i) => (
-            <React.Fragment key={`pin-top-${i}`}>
-              <line x1={355 + i * 15} y1="210" x2={355 + i * 15} y2="230" className="chip-pin" />
-              <line x1={355 + i * 15} y1="370" x2={355 + i * 15} y2="390" className="chip-pin" />
-            </React.Fragment>
-          ))}
-
-          {/* Chip Body */}
-          <rect x="350" y="230" width="100" height="140" className="chip-body fill-[#1e293b] stroke-[#94a3b8]" strokeWidth="2" />
-          
-          {/* Chip Text */}
-          <text x="400" y="300" textAnchor="middle" dominantBaseline="middle" className="chip-text fill-white text-xl">
-            ECHO
-          </text>
-          <text x="400" y="325" textAnchor="middle" dominantBaseline="middle" className="fill-[#94a3b8] text-[10px] tracking-[2px]">
-            PROCESSING
-          </text>
-        </svg>
+        {/* Loading Text */}
+        <motion.div 
+          className="mt-20 flex flex-col items-center gap-2"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+        >
+          <div className="flex gap-1">
+            {['I', 'N', 'I', 'T', 'I', 'A', 'L', 'I', 'Z', 'I', 'N', 'G'].map((letter, i) => (
+              <motion.span
+                key={i}
+                className="text-sm font-medium tracking-[0.2em] text-echo-text-muted"
+                animate={{ opacity: [0.3, 1, 0.3], color: ["#94a3b8", "#0f172a", "#94a3b8"] }}
+                transition={{ duration: 2, repeat: Infinity, delay: i * 0.1 }}
+              >
+                {letter}
+              </motion.span>
+            ))}
+          </div>
+          <div className="w-48 h-1 bg-white/10 rounded-full mt-2 overflow-hidden">
+            <motion.div 
+              className="h-full bg-gradient-to-r from-echo-accent to-pink-500"
+              initial={{ width: "0%" }}
+              animate={{ width: "100%" }}
+              transition={{ duration: 3, ease: "easeInOut", repeat: Infinity }}
+            />
+          </div>
+        </motion.div>
       </div>
     </div>
   );
 }
+

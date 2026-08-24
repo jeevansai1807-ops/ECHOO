@@ -23,7 +23,7 @@ export function OrganizationPulse() {
 
   if (!pulse) return (
     <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-      {[1,2,3,4,5].map(i => <div key={i} className="h-28 animate-pulse bg-echo-card/50 rounded-2xl border border-white/5"></div>)}
+      {[1,2,3,4,5].map(i => <div key={i} className="h-28 animate-pulse bg-echo-card/50 rounded-2xl border border-echo-text/10"></div>)}
     </div>
   )
 
@@ -84,17 +84,20 @@ export function OrganizationPulse() {
         <motion.div 
           key={i}
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: i * 0.1 }}
-          whileHover={{ y: -5, scale: 1.02 }}
-          className={`p-4 rounded-2xl border ${card.bg} ${card.border} ${card.hoverBorder} transition-all duration-300 flex flex-col justify-between cursor-pointer group bg-echo-card/40 backdrop-blur-md`}
+          animate={{ opacity: 1, y: [0, -10, 0] }}
+          transition={{ 
+            opacity: { delay: i * 0.1 },
+            y: { duration: 4 + (i * 0.5), repeat: Infinity, ease: "easeInOut", delay: i * 0.2 }
+          }}
+          whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
+          className={`p-4 rounded-2xl border ${card.bg} ${card.border} ${card.hoverBorder} transition-all duration-300 flex flex-col justify-between cursor-pointer group glass-panel`}
         >
           <div className="flex items-center justify-between mb-3">
-            <div className={`p-2.5 rounded-xl bg-echo-dark/80 shadow-inner group-hover:scale-110 transition-transform duration-300`}>
+            <div className={`p-2.5 rounded-xl bg-echo-card/50 shadow-inner group-hover:scale-110 transition-transform duration-300`}>
               {card.icon}
             </div>
             {card.trend && (
-              <div className="flex items-center gap-1 text-[10px] bg-white/5 px-2 py-1 rounded-full border border-white/5">
+              <div className="flex items-center gap-1 text-[10px] bg-echo-text/5 px-2 py-1 rounded-full border border-echo-text/10">
                 {getTrendIcon(card.trend.type)}
                 <span className="text-echo-text-muted">{card.trend.value}</span>
               </div>

@@ -71,12 +71,12 @@ export function ChatPanel() {
               animate={{ opacity: 1, y: 0 }}
               className={`flex gap-3 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}
             >
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 shadow-lg ${msg.role === 'user' ? 'bg-echo-accent shadow-[0_0_10px_rgba(59,130,246,0.5)]' : 'bg-echo-card border border-white/10'}`}>
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 shadow-lg ${msg.role === 'user' ? 'bg-echo-accent shadow-[0_0_10px_rgba(59,130,246,0.5)]' : 'bg-echo-card border border-echo-text/10'}`}>
                 {msg.role === 'user' ? <User size={16} className="text-white" /> : <Bot size={16} className="text-echo-accent" />}
               </div>
               
               <div className={`flex flex-col gap-2 max-w-[85%] ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
-                <div className={`rounded-2xl px-4 py-3 shadow-lg ${msg.role === 'user' ? 'bg-echo-accent text-white rounded-tr-sm' : 'bg-echo-card/80 backdrop-blur-md border border-white/10 text-echo-text rounded-tl-sm'}`}>
+                <div className={`rounded-2xl px-4 py-3 shadow-lg ${msg.role === 'user' ? 'bg-echo-accent text-white rounded-tr-sm' : 'glass-panel !border-t-0 !border-l-0 !rounded-2xl !rounded-tl-sm text-echo-text'}`}>
                   <p className="text-sm whitespace-pre-wrap leading-relaxed">{msg.content}</p>
                 </div>
 
@@ -96,7 +96,7 @@ export function ChatPanel() {
                       <div className="flex flex-wrap items-center gap-2 mt-1">
                         <FileText size={12} className="text-echo-text-muted" />
                         {msg.sources.map((src, i) => (
-                          <span key={i} className="text-[10px] bg-white/5 border border-white/10 px-2 py-0.5 rounded-full text-echo-text-muted flex items-center gap-1 hover:bg-white/10 cursor-pointer transition-colors">
+                          <span key={i} className="text-[10px] bg-echo-text/5 border border-echo-text/10 px-2 py-0.5 rounded-full text-echo-text-muted flex items-center gap-1 hover:bg-echo-text/10 cursor-pointer transition-colors">
                             {src}
                           </span>
                         ))}
@@ -138,10 +138,10 @@ export function ChatPanel() {
           ))}
           {isLoading && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex gap-3">
-              <div className="w-8 h-8 rounded-full bg-echo-card border border-white/10 flex items-center justify-center shrink-0">
+              <div className="w-8 h-8 rounded-full bg-echo-card border border-echo-text/10 flex items-center justify-center shrink-0">
                 <Bot size={16} className="text-echo-accent" />
               </div>
-              <div className="bg-echo-card/80 backdrop-blur-md border border-white/10 rounded-2xl px-4 py-3 flex items-center gap-2">
+              <div className="glass-panel rounded-2xl px-4 py-3 flex items-center gap-2">
                 <Loader2 className="animate-spin text-echo-accent" size={16} />
                 <span className="text-sm text-echo-text-muted">ECHO is thinking...</span>
               </div>
@@ -151,7 +151,7 @@ export function ChatPanel() {
         <div ref={messagesEndRef} />
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 p-4 bg-echo-card/60 backdrop-blur-xl border-t border-white/10 z-20">
+      <div className="absolute bottom-0 left-0 right-0 p-4 glass-panel rounded-none border-x-0 border-b-0 z-20">
         <form onSubmit={handleSend} className="w-full">
           <label className="search-label w-full flex">
             <input

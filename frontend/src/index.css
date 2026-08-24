@@ -9,8 +9,8 @@
 }
 
 :root {
-  /* Light mode default */
-  --echo-dark: #f0f4f8;
+  /* Light Theme */
+  --echo-dark: #f8fafc; 
   --echo-card: #ffffff;
   --echo-accent: #3b82f6;
   --echo-text: #0f172a;
@@ -18,10 +18,10 @@
 }
 
 :root.dark {
-  /* Dark mode */
-  --echo-dark: #0f172a;
-  --echo-card: #1e293b;
-  --echo-accent: #3b82f6;
+  /* Keep dark mode available but not default */
+  --echo-dark: #0B0F19;
+  --echo-card: #131b2f;
+  --echo-accent: #6366f1;
   --echo-text: #f8fafc;
   --echo-text-muted: #94a3b8;
 }
@@ -33,15 +33,38 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--color-echo-dark);
-  color: var(--color-echo-text);
+  background-color: var(--echo-dark);
+  color: var(--echo-text);
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animated Background Mesh (Pastel) */
+body::before {
+  content: '';
+  position: fixed;
+  inset: -50%;
+  z-index: -1;
+  background: 
+    radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.08), transparent 60%),
+    radial-gradient(circle at 80% 20%, rgba(236, 72, 153, 0.08), transparent 50%),
+    radial-gradient(circle at 20% 80%, rgba(16, 185, 129, 0.08), transparent 50%);
+  background-color: var(--echo-dark);
+  animation: mesh-rotate 30s infinite linear;
+}
+
+@keyframes mesh-rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .glass-panel {
-  background: rgba(30, 41, 59, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 4px 24px -4px rgba(0, 0, 0, 0.05), inset 0 1px 1px rgba(255, 255, 255, 0.8);
 }
 
 /* React Flow Custom Theme Overrides */
@@ -49,7 +72,7 @@ body {
   border-radius: 8px;
 }
 .react-flow__handle {
-  background-color: var(--color-echo-accent);
+  background-color: var(--echo-accent);
 }
 
 /* From Uiverse.io by Vosoone */ 
